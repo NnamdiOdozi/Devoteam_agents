@@ -1,0 +1,72 @@
+{
+  "maternity": {
+    "legislation": [
+      "data/Legislations/The Maternity and Parental Leave etc. Regulations 1999-(5).pdf",
+      "data/Legislations/Employment Rights Act 1996 (Part VI-VIII).pdf",
+      "data/Legislations/Health and Safety at Work etc. Act 1974 (sec. 2).pdf",
+      "data/Legislations/Social Security Contributions and Benefits Act 1992 (Part XII).pdf"
+    ],
+    "guidelines": [
+      "data/Guidlines/Pregnancy and maternity - Pregnancy.pdf"
+    ],
+    "news": [
+      "data/News/maternity-leave/maternity-leave-1.txt",
+      "data/News/maternity-leave/maternity-leave-2.txt",
+      "data/News/maternity-leave/maternity-leave-3.txt",
+      "data/News/maternity-leave/maternity-leave-4.txt",
+      "data/News/maternity-leave/maternity-leave-5.txt"
+    ]
+  },
+  "fertility": {
+    "legislation": [
+      "data/Legislations/Employment Rights Act 1996 (Part VI-VIII).pdf",
+      "data/Legislations/Equality Act 2010.pdf",
+      "data/Legislations/Health and Safety at Work etc. Act 1974 (sec. 2).pdf"
+    ],
+    "guidelines": [
+      "data/Guidlines/CIPD.docx"
+    ],
+    "news": [
+      "data/News/fertility/fertility-article-1.txt",
+      "data/News/fertility/fertility-article-2.txt",
+      "data/News/fertility/fertility-article-3.txt",
+      "data/News/fertility/fertility-article-4.txt",
+      "data/News/fertility/fertility-article-5.txt"
+    ]
+  },
+  "menopause": {
+    "legislation": [
+      "data/Legislations/Equality Act 2010.pdf",
+      "data/Legislations/Health and Safety at Work etc. Act 1974 (sec. 2).pdf",
+      "data/Legislations/The Management of Health and Safety at Work Regulations 1999 - (16-18).pdf"
+    ],
+    "guidelines": [
+      "data/Guidlines/Menopause in the workplace - Guidance for employers.pdf",
+      "data/Guidlines/CIPD.docx"
+    ],
+    "news": [
+      "data/News/menopause/menopause-article-1.txt",
+      "data/News/menopause/menopause-article-2.txt",
+      "data/News/menopause/menopause-article-3.txt",
+      "data/News/menopause/menopause-article-4.txt",
+      "data/News/menopause/menopause-article-5.txt"
+    ]
+  },
+  "breastfeeding": {
+    "legislation": [
+      "data/Legislations/Health and Safety at Work etc. Act 1974 (sec. 2).pdf",
+      "data/Legislations/Equality Act 2010.pdf",
+      "data/Legislations/The Workplace (Health, Safety and Welfare) Regulations 1992 (Reg 25).pdf"
+    ],
+    "guidelines": [
+      "data/Guidlines/CIPD.docx"
+    ],
+    "news": [
+      "data/News/breastfeeding/breastfeeding-article-1.txt",
+      "data/News/breastfeeding/breastfeeding-article-2.txt",
+      "data/News/breastfeeding/breastfeeding-article-3.txt",
+      "data/News/breastfeeding/breastfeeding-article-4.txt",
+      "data/News/breastfeeding/breastfeeding-article-5.txt"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+[project]
+name = "we-are-eden-ai-news-adviser"
+version = "0.1.0"
+description = "WaE News AI Agent Advisor"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.116.2",
+    "uvicorn[standard]>=0.24.0",
+    "python-multipart>=0.0.9",
+    "boto3>=1.40.35",
+    "pydantic>=2.11.9",
+    "pydantic-settings>=2.10.1",
+    "pynamodb>=6.0.1",
+    "passlib[bcrypt]>=1.7.4",
+    "httpx>=0.25.2",
+    "langfuse>=3.3.3",
+    "crawl4ai>=0.7.4",
+    "aws-bedrock-token-generator>=1.1.0",
+    "feedparser>=6.0.12",
+    "sqlalchemy>=2.0.43",
+    "sqlalchemy-orm>=1.2.10",
+    "streamlit>=1.49.1",
+]
+
+[tool.uv]
+dev-dependencies = []

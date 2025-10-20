@@ -1,0 +1,127 @@
+{
+  "version": "1",
+  "description": "News Harvester - web scraping configuration file",
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+  "respect_robots_txt": true,
+  "concurrency": 4,
+  "rate_limit_per_host": 2,
+  "timeout_seconds": 15,
+  "tasks": [
+    {
+      "type": "crawl_rss",
+      "id": "sky-news-rss",
+      "tags": ["rss", "sky-news","all"],
+      "feed_url": "http://feeds.skynews.com/feeds/rss/uk.xml",
+      "max_items": 10,
+      "only_new": true,
+      "item_link_field": "link",
+      "save_pdf": true
+    },
+    {
+      "type": "crawl_rss",
+      "id": "bbc-news-health-rss",
+      "tags": ["rss", "bbc-news","health"],
+      "feed_url": "http://feeds.bbci.co.uk/news/health/rss.xml",
+      "max_items": 10,
+      "only_new": true,
+      "item_link_field": "link",
+      "save_pdf": true
+    },
+    {
+      "type": "crawl_rss",
+      "id": "theguardian-health-rss",
+      "tags": ["rss", "theguardian","health"],
+      "feed_url": "https://www.theguardian.com/society/health/rss",
+      "max_items": 10,
+      "only_new": true,
+      "item_link_field": "link",
+      "save_pdf": true
+    },
+    {
+      "type": "crawl_rss",
+      "id": "healthwatch-rss",
+      "tags": ["rss", "healthwatch","health"],
+      "feed_url": "https://www.healthwatch.co.uk/rss.xml",
+      "allow_patterns": ["^/news/", "^/blog/"],
+      "max_items": 10,
+      "only_new": true,
+      "item_link_field": "link",
+      "save_pdf": true
+    },
+    {
+      "type": "crawl_rss",
+      "id": "personneltoday-rss",
+      "tags": ["rss", "personneltoday"],
+      "feed_url": "https://www.personneltoday.com/feed/",
+      "allow_patterns": ["^/hr/"],
+      "max_items": 10,
+      "only_new": true,
+      "item_link_field": "link",
+      "save_pdf": true
+    },
+    {
+      "type": "crawl_site",
+      "id": "politics-co-uk-crawl",
+      "tags": ["crawl", "politics-co-uk"],
+      "start_url": "https://www.politics.co.uk/",
+      "max_depth": 2,
+      "same_origin_only": true,
+      "allowed_domains": ["politics.co.uk"],
+      "allow_patterns": ["^/news/", "^/reference/"],
+      "deny_patterns": ["^/wp-content/","^/subscribe/"],
+      "save_pdf": true
+    },
+    {
+      "type": "crawl_sitemap",
+      "id": "itv-news-health-crawl",
+      "tags": ["crawl", "itv-news","sitemap"],
+      "sitemap_url": "https://www.itv.com/news/channel/sitemap.xml",
+      "max_depth": 2,
+      "same_origin_only": true,
+      "allowed_domains": ["www.itv.com","itv.com"],
+      "allow_patterns": ["^/news/"],
+      "deny_patterns": ["^/wp-content/","^/subscribe/"],
+      "capture_outgoing_links": true,
+      "save_pdf": true
+    },
+    {
+      "type": "crawl_site",
+      "id": "employeebenefits-crawl",
+      "tags": ["crawl", "employeebenefits"],
+      "start_url": "https://employeebenefits.co.uk/",
+      "max_depth": 2,
+      "same_origin_only": true,
+      "allowed_domains": ["employeebenefits.co.uk"],
+      "allow_patterns": ["^/news/", "^/benefits/healthcare-and-wellbeing/","^/benefits/menopause-fertility-and-pregnancy"],
+      "deny_patterns": ["^/wp-content/","^/subscribe/"],
+      "capture_outgoing_links": true,
+      "save_pdf": true
+    },
+    {
+      "type": "crawl_site",
+      "id": "lawgazette-crawl",
+      "tags": ["crawl", "politics-co-uk"],
+      "start_url": "https://www.lawgazette.co.uk/",
+      "max_depth": 2,
+      "same_origin_only": true,
+      "allowed_domains": ["www.lawgazette.co.uk"],
+      "allow_patterns": ["^/news", "^/analysis","^/law"],
+      "deny_patterns": [],
+      "capture_outgoing_links": true,
+      "save_pdf": true
+    },
+    {
+      "type": "crawl_site",
+      "id": "press-hse-gov-uk-crawl",
+      "tags": ["crawl", "hse-gov-uk"],
+      "start_url": "https://press.hse.gov.uk/",
+      "max_depth": 1,
+      "same_origin_only": true,
+      "allowed_domains": ["press.hse.gov.uk"],
+      "allow_patterns": ["^/2024/", "^/2025/"],
+      "deny_patterns": ["^/category/"],
+      "capture_outgoing_links": true,
+      "save_pdf": true
+    }
+  ]
+}

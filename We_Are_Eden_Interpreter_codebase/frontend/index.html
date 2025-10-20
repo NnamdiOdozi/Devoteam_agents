@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policy Assessment Tool</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Left Column: Form -->
+        <div class="left-column">
+            <header class="header">
+                <h1 class="title">Policy Assessment Tool</h1>
+                <p class="subtitle">Compare your company policy documents against legislation, guidelines, and current trends</p>
+            </header>
+
+            <!-- Upload & Category Selection Section -->
+            <section class="upload-section" id="uploadSection">
+                <form id="assessmentForm" enctype="multipart/form-data">
+                    <!-- File Upload -->
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-content">
+                            <div class="upload-icon">📄</div>
+                            <h3>Upload Policy Document</h3>
+                            <p>Drag and drop a PDF file here, or click to select</p>
+                            <input type="file" id="fileInput" name="file" accept=".pdf" hidden>
+                            <button type="button" class="upload-btn" id="uploadBtn">Choose File</button>
+                        </div>
+                        <div class="file-selected" id="fileSelected" style="display: none;">
+                            <div class="file-icon">✓</div>
+                            <div class="file-info">
+                                <span class="file-name" id="fileName"></span>
+                                <span class="file-size" id="fileSize"></span>
+                            </div>
+                            <button type="button" class="remove-btn" id="removeBtn">×</button>
+                        </div>
+                    </div>
+
+                    <!-- Category Selection -->
+                    <div class="category-section">
+                        <h3>Select Policy Category</h3>
+                        <div class="category-options">
+                            <label class="category-option">
+                                <input type="radio" name="category" value="maternity" id="maternityRadio">
+                                <div class="category-card">
+                                    <div class="category-header">
+                                        <h4>Maternity</h4>
+                                        <button type="button" class="info-btn" data-category="maternity" title="View all documents">ⓘ</button>
+                                    </div>
+                                    <div class="category-summary" id="maternitySummary">
+                                        <div class="loading">Loading documents...</div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="category-option">
+                                <input type="radio" name="category" value="fertility" id="fertilityRadio">
+                                <div class="category-card">
+                                    <div class="category-header">
+                                        <h4>Fertility</h4>
+                                        <button type="button" class="info-btn" data-category="fertility" title="View all documents">ⓘ</button>
+                                    </div>
+                                    <div class="category-summary" id="fertilitySummary">
+                                        <div class="loading">Loading documents...</div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="category-option">
+                                <input type="radio" name="category" value="menopause" id="menopauseRadio">
+                                <div class="category-card">
+                                    <div class="category-header">
+                                        <h4>Menopause</h4>
+                                        <button type="button" class="info-btn" data-category="menopause" title="View all documents">ⓘ</button>
+                                    </div>
+                                    <div class="category-summary" id="menopauseSummary">
+                                        <div class="loading">Loading documents...</div>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="category-option">
+                                <input type="radio" name="category" value="breastfeeding" id="breastfeedingRadio">
+                                <div class="category-card">
+                                    <div class="category-header">
+                                        <h4>Breastfeeding</h4>
+                                        <button type="button" class="info-btn" data-category="breastfeeding" title="View all documents">ⓘ</button>
+                                    </div>
+                                    <div class="category-summary" id="breastfeedingSummary">
+                                        <div class="loading">Loading documents...</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="submit-section">
+                        <button type="submit" class="assess-btn" id="assessBtn" disabled>
+                            Assess Policy
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <!-- Right Column: Results -->
+        <div class="right-column">
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <div class="empty-content">
+                    <div class="empty-icon">📊</div>
+                    <h3>Results will appear here</h3>
+                    <p>Upload a policy document and select a category to begin assessment</p>
+                </div>
+            </div>
+
+            <!-- Loading Section -->
+            <section class="loading-section" id="loadingSection" style="display: none;">
+                <div class="loading-animation">
+                    <div class="spinner"></div>
+                    <h3 id="loadingTitle">Analyzing Policy Document</h3>
+                    <p id="loadingSubtitle">This may take a few minutes as we compare your document against all reference materials...</p>
+                    
+                    <div class="progress-section">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="progressCounter">0 / 0</span>
+                            <span id="progressStatus">Starting assessment...</span>
+                        </div>
+                    </div>
+                    
+                    <div class="current-document" id="currentDocument" style="display: none;">
+                        <div class="document-icon" id="documentIcon">📄</div>
+                        <div class="document-info">
+                            <div class="document-name" id="currentDocumentName"></div>
+                            <div class="document-type" id="currentDocumentType"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h2>Assessment Results</h2>
+                    <div class="results-meta">
+                        <span class="policy-name" id="policyName"></span>
+                        <span class="assessment-date" id="assessmentDate"></span>
+                    </div>
+                    <div class="results-summary">
+                        <div class="summary-item">
+                            <span class="summary-number" id="totalDocs"></span>
+                            <span class="summary-label">Documents Compared</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-number" id="totalRecs"></span>
+                            <span class="summary-label">Recommendations</span>
+                        </div>
+                    </div>
+                    <button class="export-btn" id="exportBtn">Export Results</button>
+                </div>
+
+                <div class="results-content">
+                    <!-- Priority Recommendations -->
+                    <div class="priority-section">
+                        <div class="priority-group" id="highPriority">
+                            <h3 class="priority-title high">🚨 High Priority</h3>
+                            <div class="recommendations" id="highRecommendations"></div>
+                        </div>
+
+                        <div class="priority-group" id="mediumPriority">
+                            <h3 class="priority-title medium">⚠️ Medium Priority</h3>
+                            <div class="recommendations" id="mediumRecommendations"></div>
+                        </div>
+
+                        <div class="priority-group" id="lowPriority">
+                            <h3 class="priority-title low">💡 Low Priority</h3>
+                            <div class="recommendations" id="lowRecommendations"></div>
+                        </div>
+                    </div>
+
+                    <!-- Document Type Breakdown -->
+                    <div class="document-breakdown">
+                        <h3>Results by Document Type</h3>
+                        
+                        <div class="document-group" id="legislationGroup">
+                            <h4 class="document-type-title">📋 Legislation Compliance</h4>
+                            <div class="document-results" id="legislationResults"></div>
+                        </div>
+
+                        <div class="document-group" id="guidelinesGroup">
+                            <h4 class="document-type-title">📘 Best Practice Guidelines</h4>
+                            <div class="document-results" id="guidelinesResults"></div>
+                        </div>
+
+                        <div class="document-group" id="newsGroup">
+                            <h4 class="document-type-title">📰 Current Trends & News</h4>
+                            <div class="document-results" id="newsResults"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Back to Assessment Button -->
+                <div class="back-section">
+                    <button class="secondary-btn" id="backBtn">Assess Another Policy</button>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section" id="errorSection" style="display: none;">
+                <div class="error-content">
+                    <div class="error-icon">⚠️</div>
+                    <h3>Assessment Failed</h3>
+                    <p class="error-message" id="errorMessage"></p>
+                    <button class="secondary-btn" id="retryBtn">Try Again</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Document Details Modal -->
+    <div class="modal-overlay" id="documentModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle"></h3>
+                <button type="button" class="modal-close" id="modalCloseBtn">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="document-type-section">
+                    <h4 class="document-type-header">📋 Legislation</h4>
+                    <div class="document-count" id="modalLegislationCount">0 documents</div>
+                    <ul class="document-list" id="modalLegislationList"></ul>
+                </div>
+                
+                <div class="document-type-section">
+                    <h4 class="document-type-header">📘 Guidelines</h4>
+                    <div class="document-count" id="modalGuidelinesCount">0 documents</div>
+                    <ul class="document-list" id="modalGuidelinesList"></ul>
+                </div>
+                
+                <div class="document-type-section">
+                    <h4 class="document-type-header">📰 News & Trends</h4>
+                    <div class="document-count" id="modalNewsCount">0 documents</div>
+                    <ul class="document-list" id="modalNewsList"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+services:
+  harvester:
+    build:
+      context: ./harvester
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - AWS_REGION=${AWS_REGION:-eu-central-1}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+    volumes:
+      - ./harvester:/app # enable hot-reload during dev
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    environment:
+      - SERVICES=dynamodb,sqs,s3
+      - DEFAULT_REGION=eu-central-1
+      - DEBUG=1
+      - LOCALSTACK_HOST=localstack
+      - SQS_ENDPOINT_STRATEGY=path
+      - S3_ENDPOINT_STRATEGY=path
+      - LOCALSTACK_SSL=0
+    ports:
+      - "4566:4566"    # LocalStack edge port for all services
+    volumes:
+      - localstack_data:/var/lib/localstack
+      - ./localstack-init:/etc/localstack/init/ready.d
+      - "/var/run/docker.sock:/var/run/docker.sock"
+networks:
+  default:
+    name: wae-news-analysis-network

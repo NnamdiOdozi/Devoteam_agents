@@ -1,0 +1,21 @@
+{
+  "version": "1",
+  "description": "News Harvester - web scraping configuration file",
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+  "respect_robots_txt": true,
+  "concurrency": 4,
+  "rate_limit_per_host": 2,
+  "timeout_seconds": 15,
+  "tasks": [
+    {
+      "type": "crawl_rss",
+      "id": "bbc-news-health-rss",
+      "tags": ["rss", "bbc-news","health"],
+      "feed_url": "http://feeds.bbci.co.uk/news/health/rss.xml",
+      "max_items": 20,
+      "only_new": true,
+      "item_link_field": "link",
+      "save_pdf": true
+    }
+  ]
+}
