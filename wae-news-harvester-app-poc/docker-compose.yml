@@ -1,18 +1,27 @@
 services:
   harvester:
     build:
-      context: ./harvester
-      dockerfile: Dockerfile
+      context: .		# <- repo root
+      dockerfile: harvester/Dockerfile
     ports:
-      - "8000:8000"
+      - "8010:8000"
+    env_file:
+      - .env 
     environment:
       - AWS_REGION=${AWS_REGION:-eu-central-1}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+      - AWS_EC2_METADATA_DISABLED=true          # <- avoid IMDS fallback confusion
+      - AWS_ENDPOINT_URL=http://localstack:4566 # <- our one edge endpoint
+      # optional: explicitly pass these too (belt & braces)
+      - HARVESTER_SQS_QUEUE_NAME=${HARVESTER_SQS_QUEUE_NAME}
+      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
     volumes:
-      - ./harvester:/app # enable hot-reload during dev
+      - ./harvester:/app/harvester # enable hot-reload during dev
     restart: unless-stopped
+    depends_on:
+      - localstack
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
       interval: 30s
@@ -38,3 +47,6 @@ services:
 networks:
   default:
     name: wae-news-analysis-network
+
+volumes:
+  localstack_data:

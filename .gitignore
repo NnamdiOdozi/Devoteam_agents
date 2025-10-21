@@ -1,0 +1,12 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Docker/Local build
+localstack_data/
+*.log
+
+# Env & secrets
+.env
+.env.*
