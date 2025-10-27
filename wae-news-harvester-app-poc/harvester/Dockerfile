@@ -28,7 +28,7 @@ RUN mkdir -p ${BROWSER_PROFILE}
 # Copy application code
 COPY harvester/ ./harvester
 
-COPY core/ ./core
+COPY ../core ./core
 
 # Set environment variable for runtime access to data directory
 COPY ${BROWSER_PROFILE_SOURCE} ${BROWSER_PROFILE}
@@ -46,5 +46,3 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
 
 # Run the application
 CMD ["python", "-m", "harvester.app.main"]
-
-

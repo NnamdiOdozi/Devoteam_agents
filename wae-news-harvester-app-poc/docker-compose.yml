@@ -8,45 +8,18 @@ services:
     env_file:
       - .env 
     environment:
-      - AWS_REGION=${AWS_REGION:-eu-central-1}
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
-      - AWS_EC2_METADATA_DISABLED=true          # <- avoid IMDS fallback confusion
-      - AWS_ENDPOINT_URL=http://localstack:4566 # <- our one edge endpoint
-      # optional: explicitly pass these too (belt & braces)
-      - HARVESTER_SQS_QUEUE_NAME=${HARVESTER_SQS_QUEUE_NAME}
-      - S3_BUCKET_NAME=${S3_BUCKET_NAME}
+      #- AWS_DEFAULT_REGION=eu-north-1
+      #- AWS_REGION=eu-north-1
+      - AWS_PROFILE=default
     volumes:
-      - ./harvester:/app/harvester # enable hot-reload during dev
+      - ~/.aws:/root/.aws
     restart: unless-stopped
-    depends_on:
-      - localstack
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8010/api/v1/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-  localstack:
-    image: localstack/localstack:latest
-    container_name: localstack
-    environment:
-      - SERVICES=dynamodb,sqs,s3
-      - DEFAULT_REGION=eu-central-1
-      - DEBUG=1
-      - LOCALSTACK_HOST=localstack
-      - SQS_ENDPOINT_STRATEGY=path
-      - S3_ENDPOINT_STRATEGY=path
-      - LOCALSTACK_SSL=0
-    ports:
-      - "4566:4566"    # LocalStack edge port for all services
-    volumes:
-      - localstack_data:/var/lib/localstack
-      - ./localstack-init:/etc/localstack/init/ready.d
-      - "/var/run/docker.sock:/var/run/docker.sock"
 networks:
   default:
     name: wae-news-analysis-network
 
-volumes:
-  localstack_data:

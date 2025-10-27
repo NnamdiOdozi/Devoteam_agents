@@ -9,4 +9,3 @@ localstack_data/
 
 # Env & secrets
 .env
-.env.*
